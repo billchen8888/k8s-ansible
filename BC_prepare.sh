@@ -76,7 +76,7 @@ echo "$controlbox" >>  inventory/hosts
 
 # set the passwd less ssh
 chmod 600 ~/.ssh/id_rsa
-for ip in ${clusterip_array[@]}
+for ip in ${clusterip_array[@]} $controlbox
 do
    echo  ====================== $ip =================================
    ssh -o StrictHostKeyChecking=no centos@$ip "sudo  sed -i 's/^.\{,155\}//' /root/.ssh/authorized_keys"
