@@ -1,0 +1,11 @@
+# I add one scropt file to prepare the data.
+
+We put the IPs of the controlbox as the first tone, then thr cluster IPs in USER data
+then add private key to root/.ssh/id_rsa
+
+becises this script, I also modified the group_vars/all   the docker_repo to use docker, not aliyun
+                     add the ignor_error for firewalld service stop in roles/init/stop_firewalld.yml permantently
+
+run   BC_prepare.sh  as root
+
+then run the ansible-playboo

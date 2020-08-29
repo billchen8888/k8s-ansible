@@ -4,6 +4,7 @@
       name: firewalld
       state: stopped
       enabled: no
+    ignore_errors: yes
 # The situation iptables rule
   - name: Clean iptables
     shell: iptables -F && iptables -X && iptables -F -t nat && iptables -X -t nat && iptables -P FORWARD ACCEPT

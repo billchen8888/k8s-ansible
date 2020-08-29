@@ -37,13 +37,13 @@ coredns_image_tag: 1.6.7
 docker_version: 19.03.10
 
 # docker 源地址
-docker_repo: http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+docker_repo: https://download.docker.com/linux/centos/docker-ce.repo
 
 # docker 的 cgroupDriver， kubelet 应与 docker 的一致
 cgroupdriver: systemd
 
 # docker 镜像加速器
-mirror_accelerator: https://ajpb7tdn.mirror.aliyuncs.com
+# commented out by BC # mirror_accelerator: https://ajpb7tdn.mirror.aliyuncs.com
 
 # docker 存储路径,默认 /var/lib/docker
 docker_storage_path: "{{ workdir }}/docker"
@@ -64,7 +64,7 @@ coredns_service_ip: 10.96.0.10
 cluster_domain: cluster.local
 
 # 可访问 api-server 的 VIP|LB|NG 地址，用于生成证书，如果有多个则写多个，以逗号分隔
-apiserver_lb_address: 10.10.10.127,lb.5179.top,inner-lb.5179.top
+apiserver_lb_address: 10.161.21.223,lb.5179.top,inner-lb.5179.top
 
 # 如果是高可用集群，需要写一台 VIP|LB|NG 地址，建议写内网 LB 地址，用于生成kubeconfig
 apiserver_master_addr: inner-lb.5179.top
