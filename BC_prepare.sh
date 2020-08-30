@@ -86,3 +86,6 @@ do
      echo "passwdless ssh should work for root@$ip now"
    fi
 done
+
+# run ssh command to 127.0.0.1 to accept the fingerprint
+ssh -o StrictHostKeyChecking=no 127.0.0.1 hostname
