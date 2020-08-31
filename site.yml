@@ -29,6 +29,7 @@
 # 安装 masters
 - name: Install Master Cluster
   hosts: masters
+  gather_facts: true
   roles:
     - master
   tags: master

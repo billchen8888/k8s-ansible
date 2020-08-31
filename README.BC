@@ -8,4 +8,5 @@ becises this script, I also modified the group_vars/all   the docker_repo to use
 
 run   BC_prepare.sh  as root
 
-then run the ansible-playboo
+then run download_binary.sh and then
+ansible-playbook -i inventory/hosts site.yml
