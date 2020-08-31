@@ -1,6 +1,6 @@
 - name: "Make Role Labels to Masters"
   shell: |
-    sleep 5
+    sleep 180
     kubectl label nodes {{ ansible_hostname }} node-role.kubernetes.io/master=
   ignore_errors: yes
 

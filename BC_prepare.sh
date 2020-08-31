@@ -62,9 +62,10 @@ done
 echo >> inventory/hosts
 
 echo "[k8s]" >> inventory/hosts
-echo "${clusterip_array[0]}" >> inventory/hosts
-echo "${clusterip_array[1]}" >> inventory/hosts
-echo "${clusterip_array[2]}" >> inventory/hosts
+for ip in ${clusterip_array[@]}
+do
+  echo "$ip" >> inventory/hosts
+done
 echo >> inventory/hosts
 
 echo "[local]" >>  inventory/hosts
