@@ -1,8 +1,9 @@
 
 a few issues:
 
-1) why some TASKs have "skipping" ?  ad seems to me not all nodes skipped the task
-2) the label node still fails
+1) why some TASKs have "skipping" ?  and it seems to me not all nodes skipped the task
+   ANSWER: I did some research - the etcd/tasks/config_network.yml skipped as the the when network_type = flannel
+2) the label node still fails even after I changed the "sleep 5" to "sleep 180"
 
 
 
