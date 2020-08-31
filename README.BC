@@ -1,4 +1,4 @@
-# I add one scropt file to prepare the data.
+# I add one script file to prepare the data.
 
 We put the IPs of the controlbox as the first tone, then thr cluster IPs in USER data
 then add private key to root/.ssh/id_rsa
