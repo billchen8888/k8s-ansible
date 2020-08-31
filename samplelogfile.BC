@@ -1,0 +1,855 @@
+
+a few issues:
+
+1) why some TASKs have "skipping" ?  ad seems to me not all nodes skipped the task
+2) the label node still fails
+
+
+
+[root@ip-10-161-21-100 k8s-ansible]# ansible-playbook -i inventory/hosts  site.yml
+
+PLAY [Nginx] ***********************************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************
+ok: [10.161.21.100]
+
+TASK [nginx : Install Nginx Server] ************************************************************************************************************************************
+changed: [10.161.21.100]
+
+TASK [nginx : Copy Apiserver Config] ***********************************************************************************************************************************
+changed: [10.161.21.100]
+
+TASK [nginx : Check Include Exist Or Not] ******************************************************************************************************************************
+fatal: [10.161.21.100]: FAILED! => {"changed": true, "cmd": "grep \"tcp;\" nginx.conf", "delta": "0:00:00.004456", "end": "2020-08-31 03:49:44.096437", "msg": "non-zero return code", "rc": 1, "start": "2020-08-31 03:49:44.091981", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+...ignoring
+
+TASK [nginx : Add lb.tcp To Nginx Config] ******************************************************************************************************************************
+changed: [10.161.21.100]
+
+TASK [nginx : Start Nginx Server] **************************************************************************************************************************************
+changed: [10.161.21.100]
+
+PLAY [Init Environment] ************************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************
+ok: [10.161.21.101]
+ok: [10.161.20.62]
+ok: [10.161.21.7]
+ok: [10.161.20.255]
+ok: [10.161.22.65]
+
+TASK [init : Change selinux config file] *******************************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.22.65]
+changed: [10.161.20.62]
+changed: [10.161.20.255]
+changed: [10.161.21.101]
+
+TASK [init : Exec setenforce 0 command] ********************************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.20.255]
+changed: [10.161.20.62]
+changed: [10.161.22.65]
+changed: [10.161.21.101]
+
+TASK [init : Stop firewalld] *******************************************************************************************************************************************
+fatal: [10.161.21.7]: FAILED! => {"changed": false, "msg": "Could not find the requested service firewalld: host"}
+...ignoring
+fatal: [10.161.20.255]: FAILED! => {"changed": false, "msg": "Could not find the requested service firewalld: host"}
+...ignoring
+fatal: [10.161.20.62]: FAILED! => {"changed": false, "msg": "Could not find the requested service firewalld: host"}
+...ignoring
+fatal: [10.161.22.65]: FAILED! => {"changed": false, "msg": "Could not find the requested service firewalld: host"}
+...ignoring
+fatal: [10.161.21.101]: FAILED! => {"changed": false, "msg": "Could not find the requested service firewalld: host"}
+...ignoring
+
+TASK [init : Clean iptables] *******************************************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.20.255]
+changed: [10.161.22.65]
+changed: [10.161.20.62]
+changed: [10.161.21.101]
+
+TASK [init : Exec swapoff command] *************************************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.22.65]
+changed: [10.161.20.62]
+changed: [10.161.20.255]
+changed: [10.161.21.101]
+
+TASK [init : Change fstab file] ****************************************************************************************************************************************
+ok: [10.161.22.65]
+ok: [10.161.21.7]
+ok: [10.161.20.62]
+ok: [10.161.21.101]
+ok: [10.161.20.255]
+
+TASK [init : copy system parameters config file] ***********************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.20.62]
+changed: [10.161.20.255]
+changed: [10.161.22.65]
+changed: [10.161.21.101]
+
+TASK [init : Load system parameters] ***********************************************************************************************************************************
+changed: [10.161.21.101]
+changed: [10.161.22.65]
+changed: [10.161.20.255]
+changed: [10.161.20.62]
+changed: [10.161.21.7]
+
+TASK [init : Set the time zone Shanghai] *******************************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.20.255]
+changed: [10.161.20.62]
+changed: [10.161.22.65]
+changed: [10.161.21.101]
+
+TASK [init : Install epel-release And yum-utils Packages] **************************************************************************************************************
+changed: [10.161.21.101]
+changed: [10.161.20.255]
+changed: [10.161.22.65]
+changed: [10.161.20.62]
+changed: [10.161.21.7]
+
+TASK [init : Add docker-ce Repo] ***************************************************************************************************************************************
+changed: [10.161.22.65]
+changed: [10.161.20.62]
+changed: [10.161.20.255]
+changed: [10.161.21.101]
+changed: [10.161.21.7]
+
+TASK [init : Install Docker Packages] **********************************************************************************************************************************
+changed: [10.161.20.62]
+changed: [10.161.20.255]
+changed: [10.161.22.65]
+changed: [10.161.21.101]
+changed: [10.161.21.7]
+
+TASK [init : Create /etc/docker Directory] *****************************************************************************************************************************
+changed: [10.161.20.62] => (item=/etc/docker)
+changed: [10.161.21.101] => (item=/etc/docker)
+changed: [10.161.22.65] => (item=/etc/docker)
+changed: [10.161.20.255] => (item=/etc/docker)
+changed: [10.161.21.7] => (item=/etc/docker)
+changed: [10.161.20.62] => (item=/opt/docker)
+changed: [10.161.21.101] => (item=/opt/docker)
+changed: [10.161.22.65] => (item=/opt/docker)
+changed: [10.161.21.7] => (item=/opt/docker)
+changed: [10.161.20.255] => (item=/opt/docker)
+
+TASK [init : Copy docker daemon.json File] *****************************************************************************************************************************
+changed: [10.161.20.62]
+changed: [10.161.21.7]
+changed: [10.161.20.255]
+changed: [10.161.21.101]
+changed: [10.161.22.65]
+
+TASK [init : Started Docker Service] ***********************************************************************************************************************************
+changed: [10.161.21.101]
+changed: [10.161.22.65]
+changed: [10.161.20.255]
+changed: [10.161.20.62]
+changed: [10.161.21.7]
+
+TASK [init : Install new packages] *************************************************************************************************************************************
+changed: [10.161.21.101]
+changed: [10.161.22.65]
+changed: [10.161.21.7]
+changed: [10.161.20.255]
+changed: [10.161.20.62]
+
+TASK [init : Copy ipvs.modules] ****************************************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.20.255]
+changed: [10.161.22.65]
+changed: [10.161.20.62]
+changed: [10.161.21.101]
+
+TASK [init : Load /etc/sysconfig/modules/ipvs.modules] *****************************************************************************************************************
+changed: [10.161.20.62]
+changed: [10.161.21.101]
+changed: [10.161.22.65]
+changed: [10.161.21.7]
+changed: [10.161.20.255]
+
+TASK [init : Debug IP_VS Status] ***************************************************************************************************************************************
+ok: [10.161.20.255] => {
+    "msg": "IP_VS Status: ip_vs_sh               12688  0 \nip_vs_wrr              12697  0 \nip_vs_rr               12600  0 \nip_vs                 145497  6 ip_vs_rr,ip_vs_sh,ip_vs_wrr\nnf_conntrack_ipv4      15053  2 \nnf_defrag_ipv4         12729  1 nf_conntrack_ipv4\nnf_conntrack          139264  7 ip_vs,nf_nat,nf_nat_ipv4,xt_conntrack,nf_nat_masquerade_ipv4,nf_conntrack_netlink,nf_conntrack_ipv4\nlibcrc32c              12644  4 xfs,ip_vs,nf_nat,nf_conntrack"
+}
+ok: [10.161.21.7] => {
+    "msg": "IP_VS Status: ip_vs_sh               12688  0 \nip_vs_wrr              12697  0 \nip_vs_rr               12600  0 \nip_vs                 145497  6 ip_vs_rr,ip_vs_sh,ip_vs_wrr\nnf_conntrack_ipv4      15053  2 \nnf_defrag_ipv4         12729  1 nf_conntrack_ipv4\nnf_conntrack          139264  7 ip_vs,nf_nat,nf_nat_ipv4,xt_conntrack,nf_nat_masquerade_ipv4,nf_conntrack_netlink,nf_conntrack_ipv4\nlibcrc32c              12644  4 xfs,ip_vs,nf_nat,nf_conntrack"
+}
+ok: [10.161.21.101] => {
+    "msg": "IP_VS Status: ip_vs_sh               12688  0 \nip_vs_wrr              12697  0 \nip_vs_rr               12600  0 \nip_vs                 145497  6 ip_vs_rr,ip_vs_sh,ip_vs_wrr\nnf_conntrack_ipv4      15053  2 \nnf_defrag_ipv4         12729  1 nf_conntrack_ipv4\nnf_conntrack          139264  7 ip_vs,nf_nat,nf_nat_ipv4,xt_conntrack,nf_nat_masquerade_ipv4,nf_conntrack_netlink,nf_conntrack_ipv4\nlibcrc32c              12644  4 xfs,ip_vs,nf_nat,nf_conntrack"
+}
+ok: [10.161.22.65] => {
+    "msg": "IP_VS Status: ip_vs_sh               12688  0 \nip_vs_wrr              12697  0 \nip_vs_rr               12600  0 \nip_vs                 145497  6 ip_vs_rr,ip_vs_sh,ip_vs_wrr\nnf_conntrack_ipv4      15053  2 \nnf_defrag_ipv4         12729  1 nf_conntrack_ipv4\nnf_conntrack          139264  7 ip_vs,nf_nat,nf_nat_ipv4,xt_conntrack,nf_nat_masquerade_ipv4,nf_conntrack_netlink,nf_conntrack_ipv4\nlibcrc32c              12644  4 xfs,ip_vs,nf_nat,nf_conntrack"
+}
+ok: [10.161.20.62] => {
+    "msg": "IP_VS Status: ip_vs_sh               12688  0 \nip_vs_wrr              12697  0 \nip_vs_rr               12600  0 \nip_vs                 145497  6 ip_vs_rr,ip_vs_sh,ip_vs_wrr\nnf_conntrack_ipv4      15053  2 \nnf_defrag_ipv4         12729  1 nf_conntrack_ipv4\nnf_conntrack          139264  7 ip_vs,nf_nat,nf_nat_ipv4,xt_conntrack,nf_nat_masquerade_ipv4,nf_conntrack_netlink,nf_conntrack_ipv4\nlibcrc32c              12644  4 xfs,ip_vs,nf_nat,nf_conntrack"
+}
+
+TASK [init : Copy hosts file] ******************************************************************************************************************************************
+changed: [10.161.20.255]
+changed: [10.161.21.101]
+changed: [10.161.21.7]
+changed: [10.161.20.62]
+changed: [10.161.22.65]
+
+PLAY [Create Certs] ****************************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************
+ok: [127.0.0.1]
+
+TASK [cert : Make cfssl dir] *******************************************************************************************************************************************
+ok: [127.0.0.1]
+
+TASK [cert : Check cfssl exist or not] *********************************************************************************************************************************
+changed: [127.0.0.1]
+
+TASK [cert : DownLoad cfssl] *******************************************************************************************************************************************
+skipping: [127.0.0.1] => (item=https://pkg.cfssl.org/R1.2/cfssl_linux-amd64)
+skipping: [127.0.0.1] => (item=https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64)
+skipping: [127.0.0.1] => (item=https://pkg.cfssl.org/R1.2/cfssl-certinfo_linux-amd64)
+
+TASK [cert : Copy cfssl to /usr/local/bin/] ****************************************************************************************************************************
+changed: [127.0.0.1] => (item={u'dest': u'cfssl', u'src': u'cfssl_linux-amd64'})
+changed: [127.0.0.1] => (item={u'dest': u'cfssljson', u'src': u'cfssljson_linux-amd64'})
+changed: [127.0.0.1] => (item={u'dest': u'cfssl-certinfo', u'src': u'cfssl-certinfo_linux-amd64'})
+
+TASK [cert : Make Certs Directory] *************************************************************************************************************************************
+changed: [127.0.0.1]
+
+TASK [cert : Check Certs exist or not] *********************************************************************************************************************************
+changed: [127.0.0.1]
+
+TASK [cert : Debug File numbers] ***************************************************************************************************************************************
+ok: [127.0.0.1] => {
+    "msg": "0"
+}
+
+TASK [cert : Backup Old Certs] *****************************************************************************************************************************************
+skipping: [127.0.0.1]
+
+TASK [cert : Generate ca-config.json] **********************************************************************************************************************************
+changed: [127.0.0.1]
+
+TASK [cert : Generate ca-csr.json] *************************************************************************************************************************************
+changed: [127.0.0.1]
+
+TASK [cert : Generate CA File and Key File] ****************************************************************************************************************************
+changed: [127.0.0.1]
+
+TASK [cert : Generate server-csr.json] *********************************************************************************************************************************
+changed: [127.0.0.1]
+
+TASK [cert : Generate Server Certs File and Key File] ******************************************************************************************************************
+changed: [127.0.0.1]
+
+TASK [cert : Generate admin-csr.json] **********************************************************************************************************************************
+changed: [127.0.0.1]
+
+TASK [cert : Generate Admin Certs File and Key File] *******************************************************************************************************************
+changed: [127.0.0.1]
+
+TASK [cert : Generate kube-proxy-csr.json] *****************************************************************************************************************************
+changed: [127.0.0.1]
+
+TASK [cert : Generate Kube-proxy Certs File and Key File] **************************************************************************************************************
+changed: [127.0.0.1]
+
+TASK [cert : Generate metrics-servery-csr.json] ************************************************************************************************************************
+changed: [127.0.0.1]
+
+TASK [cert : Generate Metrics-server Certs File and Key File] **********************************************************************************************************
+changed: [127.0.0.1]
+
+PLAY [Install Etcd Cluster] ********************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************
+ok: [10.161.21.7]
+ok: [10.161.22.65]
+ok: [10.161.20.255]
+
+TASK [etcd : Make Etcd Directory] **************************************************************************************************************************************
+changed: [10.161.21.7] => (item=etcd)
+changed: [10.161.20.255] => (item=etcd)
+changed: [10.161.22.65] => (item=etcd)
+changed: [10.161.21.7] => (item=etcd/bin)
+changed: [10.161.20.255] => (item=etcd/bin)
+changed: [10.161.22.65] => (item=etcd/bin)
+changed: [10.161.21.7] => (item=etcd/cfg)
+changed: [10.161.22.65] => (item=etcd/cfg)
+changed: [10.161.20.255] => (item=etcd/cfg)
+changed: [10.161.21.7] => (item=etcd/ssl)
+changed: [10.161.22.65] => (item=etcd/ssl)
+changed: [10.161.20.255] => (item=etcd/ssl)
+changed: [10.161.21.7] => (item=etcd/data)
+changed: [10.161.22.65] => (item=etcd/data)
+changed: [10.161.20.255] => (item=etcd/data)
+
+TASK [etcd : Distribute ETCD Binary File] ******************************************************************************************************************************
+changed: [10.161.20.255] => (item=etcd)
+changed: [10.161.21.7] => (item=etcd)
+changed: [10.161.22.65] => (item=etcd)
+changed: [10.161.20.255] => (item=etcdctl)
+changed: [10.161.22.65] => (item=etcdctl)
+changed: [10.161.21.7] => (item=etcdctl)
+
+TASK [etcd : Distribute ETCD Certs] ************************************************************************************************************************************
+changed: [10.161.21.7] => (item=ca.pem)
+changed: [10.161.20.255] => (item=ca.pem)
+changed: [10.161.22.65] => (item=ca.pem)
+changed: [10.161.21.7] => (item=server-key.pem)
+changed: [10.161.20.255] => (item=server-key.pem)
+changed: [10.161.22.65] => (item=server-key.pem)
+changed: [10.161.21.7] => (item=server.pem)
+changed: [10.161.22.65] => (item=server.pem)
+changed: [10.161.20.255] => (item=server.pem)
+
+TASK [etcd : Copy ETCD Configuration Files] ****************************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.20.255]
+changed: [10.161.22.65]
+
+TASK [etcd : Write ETCD Command to Profile] ****************************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.22.65]
+changed: [10.161.20.255]
+
+TASK [etcd : Copy ETCD Systemd File] ***********************************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.22.65]
+changed: [10.161.20.255]
+
+TASK [etcd : Start ETCD] ***********************************************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.22.65]
+changed: [10.161.20.255]
+
+TASK [etcd : Copy Config_network.sh Files] *****************************************************************************************************************************
+skipping: [10.161.20.255]
+skipping: [10.161.21.7]
+skipping: [10.161.22.65]
+
+TASK [etcd : Run Config_network.sh] ************************************************************************************************************************************
+skipping: [10.161.20.255]
+
+RUNNING HANDLER [restart etcd] *****************************************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.22.65]
+changed: [10.161.20.255]
+
+PLAY [Install Master Cluster] ******************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************
+ok: [10.161.21.7]
+ok: [10.161.20.255]
+ok: [10.161.22.65]
+
+TASK [master : Make Master Directory] **********************************************************************************************************************************
+changed: [10.161.21.7] => (item=kubernetes)
+changed: [10.161.22.65] => (item=kubernetes)
+changed: [10.161.20.255] => (item=kubernetes)
+changed: [10.161.21.7] => (item=kubernetes/bin)
+changed: [10.161.22.65] => (item=kubernetes/bin)
+changed: [10.161.20.255] => (item=kubernetes/bin)
+changed: [10.161.21.7] => (item=kubernetes/cfg)
+changed: [10.161.22.65] => (item=kubernetes/cfg)
+changed: [10.161.20.255] => (item=kubernetes/cfg)
+changed: [10.161.21.7] => (item=kubernetes/ssl)
+changed: [10.161.22.65] => (item=kubernetes/ssl)
+changed: [10.161.20.255] => (item=kubernetes/ssl)
+changed: [10.161.21.7] => (item=kubernetes/logs)
+changed: [10.161.22.65] => (item=kubernetes/logs)
+changed: [10.161.20.255] => (item=kubernetes/logs)
+changed: [10.161.21.7] => (item=kubernetes/logs/kube-scheduler)
+changed: [10.161.20.255] => (item=kubernetes/logs/kube-scheduler)
+changed: [10.161.22.65] => (item=kubernetes/logs/kube-scheduler)
+changed: [10.161.21.7] => (item=kubernetes/logs/kube-apiserver)
+changed: [10.161.22.65] => (item=kubernetes/logs/kube-apiserver)
+changed: [10.161.20.255] => (item=kubernetes/logs/kube-apiserver)
+changed: [10.161.21.7] => (item=kubernetes/logs/kube-controller-manager)
+changed: [10.161.20.255] => (item=kubernetes/logs/kube-controller-manager)
+changed: [10.161.22.65] => (item=kubernetes/logs/kube-controller-manager)
+
+TASK [master : Distribute K8s Kubelet Binary File To Localhost] ********************************************************************************************************
+changed: [10.161.20.255]
+ok: [10.161.21.7]
+ok: [10.161.22.65]
+
+TASK [master : Check Token.csv Exist Or Not] ***************************************************************************************************************************
+fatal: [10.161.20.255]: FAILED! => {"changed": true, "cmd": "grep kubelet /opt/ssl/token.csv", "delta": "0:00:00.014564", "end": "2020-08-31 03:51:52.326325", "msg": "non-zero return code", "rc": 2, "start": "2020-08-31 03:51:52.311761", "stderr": "grep: /opt/ssl/token.csv: No such file or directory", "stderr_lines": ["grep: /opt/ssl/token.csv: No such file or directory"], "stdout": "", "stdout_lines": []}
+...ignoring
+fatal: [10.161.22.65]: FAILED! => {"changed": true, "cmd": "grep kubelet /opt/ssl/token.csv", "delta": "0:00:00.009541", "end": "2020-08-31 03:51:52.354990", "msg": "non-zero return code", "rc": 2, "start": "2020-08-31 03:51:52.345449", "stderr": "grep: /opt/ssl/token.csv: No such file or directory", "stderr_lines": ["grep: /opt/ssl/token.csv: No such file or directory"], "stdout": "", "stdout_lines": []}
+...ignoring
+fatal: [10.161.21.7]: FAILED! => {"changed": true, "cmd": "grep kubelet /opt/ssl/token.csv", "delta": "0:00:00.004497", "end": "2020-08-31 03:51:52.411413", "msg": "non-zero return code", "rc": 2, "start": "2020-08-31 03:51:52.406916", "stderr": "grep: /opt/ssl/token.csv: No such file or directory", "stderr_lines": ["grep: /opt/ssl/token.csv: No such file or directory"], "stdout": "", "stdout_lines": []}
+...ignoring
+
+TASK [master : Generate Token File] ************************************************************************************************************************************
+changed: [10.161.21.7]
+ok: [10.161.22.65]
+ok: [10.161.20.255]
+
+TASK [master : Check Admin.kubeconfig Exist Or Not] ********************************************************************************************************************
+fatal: [10.161.22.65]: FAILED! => {"changed": true, "cmd": "ls /opt/ssl/admin.kubeconfig", "delta": "0:00:00.005128", "end": "2020-08-31 03:51:53.025374", "msg": "non-zero return code", "rc": 2, "start": "2020-08-31 03:51:53.020246", "stderr": "ls: cannot access /opt/ssl/admin.kubeconfig: No such file or directory", "stderr_lines": ["ls: cannot access /opt/ssl/admin.kubeconfig: No such file or directory"], "stdout": "", "stdout_lines": []}
+...ignoring
+fatal: [10.161.20.255]: FAILED! => {"changed": true, "cmd": "ls /opt/ssl/admin.kubeconfig", "delta": "0:00:00.009891", "end": "2020-08-31 03:51:53.074295", "msg": "non-zero return code", "rc": 2, "start": "2020-08-31 03:51:53.064404", "stderr": "ls: cannot access /opt/ssl/admin.kubeconfig: No such file or directory", "stderr_lines": ["ls: cannot access /opt/ssl/admin.kubeconfig: No such file or directory"], "stdout": "", "stdout_lines": []}
+...ignoring
+fatal: [10.161.21.7]: FAILED! => {"changed": true, "cmd": "ls /opt/ssl/admin.kubeconfig", "delta": "0:00:00.004697", "end": "2020-08-31 03:51:53.091604", "msg": "non-zero return code", "rc": 2, "start": "2020-08-31 03:51:53.086907", "stderr": "ls: cannot access /opt/ssl/admin.kubeconfig: No such file or directory", "stderr_lines": ["ls: cannot access /opt/ssl/admin.kubeconfig: No such file or directory"], "stdout": "", "stdout_lines": []}
+...ignoring
+
+TASK [master : Generate Admin Kubeconfig] ******************************************************************************************************************************
+changed: [10.161.20.255]
+changed: [10.161.22.65]
+changed: [10.161.21.7]
+
+TASK [master : Check Bootstrap.kubeconfig Exist Or Not] ****************************************************************************************************************
+fatal: [10.161.20.255]: FAILED! => {"changed": true, "cmd": "ls /opt/ssl/bootstrap.kubeconfig", "delta": "0:00:00.024034", "end": "2020-08-31 03:51:54.094579", "msg": "non-zero return code", "rc": 2, "start": "2020-08-31 03:51:54.070545", "stderr": "ls: cannot access /opt/ssl/bootstrap.kubeconfig: No such file or directory", "stderr_lines": ["ls: cannot access /opt/ssl/bootstrap.kubeconfig: No such file or directory"], "stdout": "", "stdout_lines": []}
+...ignoring
+fatal: [10.161.22.65]: FAILED! => {"changed": true, "cmd": "ls /opt/ssl/bootstrap.kubeconfig", "delta": "0:00:00.020066", "end": "2020-08-31 03:51:54.148654", "msg": "non-zero return code", "rc": 2, "start": "2020-08-31 03:51:54.128588", "stderr": "ls: cannot access /opt/ssl/bootstrap.kubeconfig: No such file or directory", "stderr_lines": ["ls: cannot access /opt/ssl/bootstrap.kubeconfig: No such file or directory"], "stdout": "", "stdout_lines": []}
+...ignoring
+fatal: [10.161.21.7]: FAILED! => {"changed": true, "cmd": "ls /opt/ssl/bootstrap.kubeconfig", "delta": "0:00:00.005204", "end": "2020-08-31 03:51:54.155044", "msg": "non-zero return code", "rc": 2, "start": "2020-08-31 03:51:54.149840", "stderr": "ls: cannot access /opt/ssl/bootstrap.kubeconfig: No such file or directory", "stderr_lines": ["ls: cannot access /opt/ssl/bootstrap.kubeconfig: No such file or directory"], "stdout": "", "stdout_lines": []}
+...ignoring
+
+TASK [master : Generate Bootstrap Kubeconfig] **************************************************************************************************************************
+changed: [10.161.20.255]
+changed: [10.161.22.65]
+changed: [10.161.21.7]
+
+TASK [master : Check Kube-proxy.kubeconfig Exist Or Not] ***************************************************************************************************************
+fatal: [10.161.21.7]: FAILED! => {"changed": true, "cmd": "ls /opt/ssl/kube-proxy.kubeconfig", "delta": "0:00:00.005478", "end": "2020-08-31 03:51:55.142824", "msg": "non-zero return code", "rc": 2, "start": "2020-08-31 03:51:55.137346", "stderr": "ls: cannot access /opt/ssl/kube-proxy.kubeconfig: No such file or directory", "stderr_lines": ["ls: cannot access /opt/ssl/kube-proxy.kubeconfig: No such file or directory"], "stdout": "", "stdout_lines": []}
+...ignoring
+fatal: [10.161.20.255]: FAILED! => {"changed": true, "cmd": "ls /opt/ssl/kube-proxy.kubeconfig", "delta": "0:00:00.011314", "end": "2020-08-31 03:51:55.161250", "msg": "non-zero return code", "rc": 2, "start": "2020-08-31 03:51:55.149936", "stderr": "ls: cannot access /opt/ssl/kube-proxy.kubeconfig: No such file or directory", "stderr_lines": ["ls: cannot access /opt/ssl/kube-proxy.kubeconfig: No such file or directory"], "stdout": "", "stdout_lines": []}
+...ignoring
+fatal: [10.161.22.65]: FAILED! => {"changed": true, "cmd": "ls /opt/ssl/kube-proxy.kubeconfig", "delta": "0:00:00.004637", "end": "2020-08-31 03:51:55.253143", "msg": "non-zero return code", "rc": 2, "start": "2020-08-31 03:51:55.248506", "stderr": "ls: cannot access /opt/ssl/kube-proxy.kubeconfig: No such file or directory", "stderr_lines": ["ls: cannot access /opt/ssl/kube-proxy.kubeconfig: No such file or directory"], "stdout": "", "stdout_lines": []}
+...ignoring
+
+TASK [master : Generate Kube-proxy Kubeconfig] *************************************************************************************************************************
+changed: [10.161.20.255]
+changed: [10.161.21.7]
+changed: [10.161.22.65]
+
+TASK [master : Distribute K8s Master Binary File] **********************************************************************************************************************
+changed: [10.161.20.255] => (item=kubectl)
+changed: [10.161.22.65] => (item=kubectl)
+changed: [10.161.21.7] => (item=kubectl)
+changed: [10.161.22.65] => (item=kube-apiserver)
+changed: [10.161.20.255] => (item=kube-apiserver)
+changed: [10.161.21.7] => (item=kube-apiserver)
+changed: [10.161.22.65] => (item=kube-controller-manager)
+changed: [10.161.22.65] => (item=kube-scheduler)
+changed: [10.161.21.7] => (item=kube-controller-manager)
+changed: [10.161.20.255] => (item=kube-controller-manager)
+changed: [10.161.21.7] => (item=kube-scheduler)
+changed: [10.161.20.255] => (item=kube-scheduler)
+
+TASK [master : Distribute K8s Certs] ***********************************************************************************************************************************
+changed: [10.161.20.255] => (item=ca.pem)
+changed: [10.161.21.7] => (item=ca.pem)
+changed: [10.161.22.65] => (item=ca.pem)
+changed: [10.161.21.7] => (item=ca-key.pem)
+changed: [10.161.20.255] => (item=ca-key.pem)
+changed: [10.161.22.65] => (item=ca-key.pem)
+changed: [10.161.21.7] => (item=server.pem)
+changed: [10.161.22.65] => (item=server.pem)
+changed: [10.161.20.255] => (item=server.pem)
+changed: [10.161.21.7] => (item=server-key.pem)
+changed: [10.161.22.65] => (item=server-key.pem)
+changed: [10.161.20.255] => (item=server-key.pem)
+changed: [10.161.21.7] => (item=metrics-server.pem)
+changed: [10.161.22.65] => (item=metrics-server.pem)
+changed: [10.161.20.255] => (item=metrics-server.pem)
+changed: [10.161.21.7] => (item=metrics-server-key.pem)
+changed: [10.161.22.65] => (item=metrics-server-key.pem)
+changed: [10.161.20.255] => (item=metrics-server-key.pem)
+
+TASK [master : Distribute Token.csv] ***********************************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.22.65]
+changed: [10.161.20.255]
+
+TASK [master : Write Kubectl Command to Profile] ***********************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.22.65]
+changed: [10.161.20.255]
+
+TASK [master : Copy Kube-apiserver Configuration Files] ****************************************************************************************************************
+changed: [10.161.20.255]
+changed: [10.161.22.65]
+changed: [10.161.21.7]
+
+TASK [master : Copy Kube-apiserver Systemd File] ***********************************************************************************************************************
+changed: [10.161.22.65]
+changed: [10.161.21.7]
+changed: [10.161.20.255]
+
+TASK [master : Start Kube-apiserver] ***********************************************************************************************************************************
+changed: [10.161.20.255]
+changed: [10.161.21.7]
+changed: [10.161.22.65]
+
+TASK [master : Copy Kube-controller-manager Configuration Files] *******************************************************************************************************
+changed: [10.161.20.255]
+changed: [10.161.21.7]
+changed: [10.161.22.65]
+
+TASK [master : Copy Kube-controller-manager Systemd File] **************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.20.255]
+changed: [10.161.22.65]
+
+TASK [master : Start Kube-controller-manager] **************************************************************************************************************************
+changed: [10.161.20.255]
+changed: [10.161.22.65]
+changed: [10.161.21.7]
+
+TASK [master : Copy Kube-scheduler Configuration Files] ****************************************************************************************************************
+changed: [10.161.20.255]
+changed: [10.161.22.65]
+changed: [10.161.21.7]
+
+TASK [master : Copy Kube-scheduler Systemd File] ***********************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.22.65]
+changed: [10.161.20.255]
+
+TASK [master : Start Kube-scheduler] ***********************************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.22.65]
+changed: [10.161.20.255]
+
+TASK [master : Add Kubelet-bootstrap RoleBinding For A CSR Is Automatically Created when a Kubelet is started] *********************************************************
+changed: [10.161.20.255]
+
+TASK [master : Create Dir yaml] ****************************************************************************************************************************************
+changed: [10.161.20.255]
+
+TASK [master : Copy File tls-instructs-csr.yaml] ***********************************************************************************************************************
+changed: [10.161.20.255]
+
+TASK [master : Create Approve CSR ClusterRole] *************************************************************************************************************************
+changed: [10.161.20.255]
+
+TASK [master : Create Approve CSR ClusterRoleBinding] ******************************************************************************************************************
+changed: [10.161.20.255]
+
+TASK [master : Create CRT Renew ClusterRoleBinding] ********************************************************************************************************************
+changed: [10.161.20.255]
+
+TASK [master : Create kubelet-api-admin clusterRoleBinding To Access Log Or Exec] **************************************************************************************
+changed: [10.161.20.255]
+
+TASK [master : Make Role Labels to Masters] ****************************************************************************************************************************
+fatal: [10.161.20.255]: FAILED! => {"changed": true, "cmd": "sleep 180\nkubectl label nodes ip-10-161-20-255 node-role.kubernetes.io/master=\n", "delta": "0:03:00.066989", "end": "2020-08-31 11:56:38.842296", "msg": "non-zero return code", "rc": 1, "start": "2020-08-31 11:53:38.775307", "stderr": "Error from server (NotFound): nodes \"ip-10-161-20-255\" not found", "stderr_lines": ["Error from server (NotFound): nodes \"ip-10-161-20-255\" not found"], "stdout": "", "stdout_lines": []}
+...ignoring
+fatal: [10.161.21.7]: FAILED! => {"changed": true, "cmd": "sleep 180\nkubectl label nodes ip-10-161-21-7 node-role.kubernetes.io/master=\n", "delta": "0:03:00.201992", "end": "2020-08-31 11:56:39.023607", "msg": "non-zero return code", "rc": 1, "start": "2020-08-31 11:53:38.821615", "stderr": "Error from server (NotFound): nodes \"ip-10-161-21-7\" not found", "stderr_lines": ["Error from server (NotFound): nodes \"ip-10-161-21-7\" not found"], "stdout": "", "stdout_lines": []}
+...ignoring
+fatal: [10.161.22.65]: FAILED! => {"changed": true, "cmd": "sleep 180\nkubectl label nodes ip-10-161-22-65 node-role.kubernetes.io/master=\n", "delta": "0:03:00.220103", "end": "2020-08-31 11:56:39.068385", "msg": "non-zero return code", "rc": 1, "start": "2020-08-31 11:53:38.848282", "stderr": "Error from server (NotFound): nodes \"ip-10-161-22-65\" not found", "stderr_lines": ["Error from server (NotFound): nodes \"ip-10-161-22-65\" not found"], "stdout": "", "stdout_lines": []}
+...ignoring
+
+TASK [master : Make Taints to Masters] *********************************************************************************************************************************
+fatal: [10.161.21.7]: FAILED! => {"changed": true, "cmd": "sleep 5\nkubectl taint nodes ip-10-161-21-7  node-role.kubernetes.io/master=:NoSchedule\n", "delta": "0:00:05.066451", "end": "2020-08-31 11:56:44.567022", "msg": "non-zero return code", "rc": 1, "start": "2020-08-31 11:56:39.500571", "stderr": "Error from server (NotFound): nodes \"ip-10-161-21-7\" not found", "stderr_lines": ["Error from server (NotFound): nodes \"ip-10-161-21-7\" not found"], "stdout": "", "stdout_lines": []}
+...ignoring
+fatal: [10.161.20.255]: FAILED! => {"changed": true, "cmd": "sleep 5\nkubectl taint nodes ip-10-161-20-255  node-role.kubernetes.io/master=:NoSchedule\n", "delta": "0:00:05.075529", "end": "2020-08-31 11:56:44.581694", "msg": "non-zero return code", "rc": 1, "start": "2020-08-31 11:56:39.506165", "stderr": "Error from server (NotFound): nodes \"ip-10-161-20-255\" not found", "stderr_lines": ["Error from server (NotFound): nodes \"ip-10-161-20-255\" not found"], "stdout": "", "stdout_lines": []}
+...ignoring
+fatal: [10.161.22.65]: FAILED! => {"changed": true, "cmd": "sleep 5\nkubectl taint nodes ip-10-161-22-65  node-role.kubernetes.io/master=:NoSchedule\n", "delta": "0:00:05.072964", "end": "2020-08-31 11:56:44.590975", "msg": "non-zero return code", "rc": 1, "start": "2020-08-31 11:56:39.518011", "stderr": "Error from server (NotFound): nodes \"ip-10-161-22-65\" not found", "stderr_lines": ["Error from server (NotFound): nodes \"ip-10-161-22-65\" not found"], "stdout": "", "stdout_lines": []}
+...ignoring
+
+TASK [master : Copy Admin Kubeconfig to /root/.kube/config] ************************************************************************************************************
+changed: [10.161.21.7]
+ok: [10.161.20.255]
+ok: [10.161.22.65]
+
+PLAY [Install Node Cluster] ********************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************
+ok: [10.161.21.7]
+ok: [10.161.20.255]
+ok: [10.161.22.65]
+ok: [10.161.20.62]
+ok: [10.161.21.101]
+
+TASK [node : Make Nodes Directory] *************************************************************************************************************************************
+ok: [10.161.21.7] => (item=kubernetes)
+ok: [10.161.20.255] => (item=kubernetes)
+changed: [10.161.20.62] => (item=kubernetes)
+changed: [10.161.21.101] => (item=kubernetes)
+ok: [10.161.22.65] => (item=kubernetes)
+ok: [10.161.21.7] => (item=kubernetes/bin)
+ok: [10.161.20.255] => (item=kubernetes/bin)
+changed: [10.161.20.62] => (item=kubernetes/bin)
+changed: [10.161.21.101] => (item=kubernetes/bin)
+ok: [10.161.22.65] => (item=kubernetes/bin)
+ok: [10.161.21.7] => (item=kubernetes/cfg)
+ok: [10.161.20.255] => (item=kubernetes/cfg)
+changed: [10.161.20.62] => (item=kubernetes/cfg)
+changed: [10.161.21.101] => (item=kubernetes/cfg)
+ok: [10.161.22.65] => (item=kubernetes/cfg)
+changed: [10.161.20.62] => (item=kubernetes/ssl)
+ok: [10.161.21.7] => (item=kubernetes/ssl)
+changed: [10.161.21.101] => (item=kubernetes/ssl)
+ok: [10.161.20.255] => (item=kubernetes/ssl)
+ok: [10.161.22.65] => (item=kubernetes/ssl)
+changed: [10.161.20.62] => (item=kubernetes/logs)
+ok: [10.161.21.7] => (item=kubernetes/logs)
+changed: [10.161.21.101] => (item=kubernetes/logs)
+ok: [10.161.20.255] => (item=kubernetes/logs)
+changed: [10.161.20.62] => (item=kubernetes/logs/kubelet)
+changed: [10.161.21.7] => (item=kubernetes/logs/kubelet)
+ok: [10.161.22.65] => (item=kubernetes/logs)
+changed: [10.161.21.101] => (item=kubernetes/logs/kubelet)
+changed: [10.161.20.255] => (item=kubernetes/logs/kubelet)
+changed: [10.161.20.62] => (item=kubernetes/logs/kube-proxy)
+changed: [10.161.21.7] => (item=kubernetes/logs/kube-proxy)
+changed: [10.161.21.101] => (item=kubernetes/logs/kube-proxy)
+changed: [10.161.20.255] => (item=kubernetes/logs/kube-proxy)
+changed: [10.161.22.65] => (item=kubernetes/logs/kubelet)
+changed: [10.161.22.65] => (item=kubernetes/logs/kube-proxy)
+
+TASK [node : Distribute K8s Node Binary File] **************************************************************************************************************************
+changed: [10.161.21.7] => (item=kubelet)
+changed: [10.161.20.62] => (item=kubelet)
+changed: [10.161.21.101] => (item=kubelet)
+changed: [10.161.22.65] => (item=kubelet)
+changed: [10.161.20.255] => (item=kubelet)
+changed: [10.161.21.7] => (item=kube-proxy)
+changed: [10.161.20.62] => (item=kube-proxy)
+changed: [10.161.22.65] => (item=kube-proxy)
+changed: [10.161.21.101] => (item=kube-proxy)
+changed: [10.161.20.255] => (item=kube-proxy)
+
+TASK [node : Distribute K8s Kubeconfigs] *******************************************************************************************************************************
+changed: [10.161.21.7] => (item=kube-proxy.kubeconfig)
+changed: [10.161.20.62] => (item=kube-proxy.kubeconfig)
+changed: [10.161.22.65] => (item=kube-proxy.kubeconfig)
+changed: [10.161.20.255] => (item=kube-proxy.kubeconfig)
+changed: [10.161.21.101] => (item=kube-proxy.kubeconfig)
+changed: [10.161.20.62] => (item=bootstrap.kubeconfig)
+changed: [10.161.21.7] => (item=bootstrap.kubeconfig)
+changed: [10.161.22.65] => (item=bootstrap.kubeconfig)
+changed: [10.161.21.101] => (item=bootstrap.kubeconfig)
+changed: [10.161.20.255] => (item=bootstrap.kubeconfig)
+
+TASK [node : Distribute K8s Certs] *************************************************************************************************************************************
+ok: [10.161.21.7]
+ok: [10.161.22.65]
+changed: [10.161.20.62]
+ok: [10.161.20.255]
+changed: [10.161.21.101]
+
+TASK [node : Distribute Token.csv] *************************************************************************************************************************************
+ok: [10.161.21.7]
+ok: [10.161.22.65]
+changed: [10.161.20.62]
+ok: [10.161.20.255]
+changed: [10.161.21.101]
+
+TASK [node : Copy Kube-proxy Configuration Files] **********************************************************************************************************************
+changed: [10.161.22.65] => (item=kube-proxy.conf)
+changed: [10.161.21.7] => (item=kube-proxy.conf)
+changed: [10.161.20.62] => (item=kube-proxy.conf)
+changed: [10.161.21.101] => (item=kube-proxy.conf)
+changed: [10.161.20.255] => (item=kube-proxy.conf)
+changed: [10.161.22.65] => (item=kube-proxy-config.yml)
+changed: [10.161.20.62] => (item=kube-proxy-config.yml)
+changed: [10.161.21.7] => (item=kube-proxy-config.yml)
+changed: [10.161.21.101] => (item=kube-proxy-config.yml)
+changed: [10.161.20.255] => (item=kube-proxy-config.yml)
+
+TASK [node : Copy Kube-proxy Systemd File] *****************************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.20.62]
+changed: [10.161.22.65]
+changed: [10.161.21.101]
+changed: [10.161.20.255]
+
+TASK [node : Start Kube-proxy] *****************************************************************************************************************************************
+changed: [10.161.20.255]
+changed: [10.161.21.7]
+changed: [10.161.20.62]
+changed: [10.161.22.65]
+changed: [10.161.21.101]
+
+TASK [node : Copy Kubelet Configuration Files] *************************************************************************************************************************
+changed: [10.161.20.255] => (item=kubelet.conf)
+changed: [10.161.21.7] => (item=kubelet.conf)
+changed: [10.161.20.62] => (item=kubelet.conf)
+changed: [10.161.21.101] => (item=kubelet.conf)
+changed: [10.161.22.65] => (item=kubelet.conf)
+changed: [10.161.20.255] => (item=kubelet-config.yml)
+changed: [10.161.21.7] => (item=kubelet-config.yml)
+changed: [10.161.20.62] => (item=kubelet-config.yml)
+changed: [10.161.21.101] => (item=kubelet-config.yml)
+changed: [10.161.22.65] => (item=kubelet-config.yml)
+
+TASK [node : Copy Kubelet Systemd File] ********************************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.20.62]
+changed: [10.161.21.101]
+changed: [10.161.22.65]
+changed: [10.161.20.255]
+
+TASK [node : Start Kubelet] ********************************************************************************************************************************************
+changed: [10.161.20.255]
+changed: [10.161.20.62]
+changed: [10.161.21.7]
+changed: [10.161.22.65]
+changed: [10.161.21.101]
+
+PLAY [Install Network Plugins] *****************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************
+ok: [10.161.21.7]
+ok: [10.161.22.65]
+ok: [10.161.20.62]
+ok: [10.161.20.255]
+ok: [10.161.21.101]
+
+TASK [flannel : Distribute Flannel Link Etcd Certs] ********************************************************************************************************************
+skipping: [10.161.20.255] => (item=server.pem)
+skipping: [10.161.20.255] => (item=server-key.pem)
+skipping: [10.161.21.7] => (item=server.pem)
+skipping: [10.161.21.7] => (item=server-key.pem)
+skipping: [10.161.22.65] => (item=server.pem)
+skipping: [10.161.22.65] => (item=server-key.pem)
+skipping: [10.161.20.62] => (item=server.pem)
+skipping: [10.161.20.62] => (item=server-key.pem)
+skipping: [10.161.21.101] => (item=server.pem)
+skipping: [10.161.21.101] => (item=server-key.pem)
+
+TASK [flannel : Create Cni-plugins Dirs] *******************************************************************************************************************************
+skipping: [10.161.20.255] => (item=/etc/cni/net.d)
+skipping: [10.161.20.255] => (item=/opt/cni/bin)
+skipping: [10.161.21.7] => (item=/etc/cni/net.d)
+skipping: [10.161.21.7] => (item=/opt/cni/bin)
+skipping: [10.161.20.62] => (item=/etc/cni/net.d)
+skipping: [10.161.20.62] => (item=/opt/cni/bin)
+skipping: [10.161.22.65] => (item=/etc/cni/net.d)
+skipping: [10.161.22.65] => (item=/opt/cni/bin)
+skipping: [10.161.21.101] => (item=/etc/cni/net.d)
+skipping: [10.161.21.101] => (item=/opt/cni/bin)
+
+TASK [flannel : Distribute Cni-plugins Binary File] ********************************************************************************************************************
+skipping: [10.161.20.255]
+skipping: [10.161.21.7]
+skipping: [10.161.22.65]
+skipping: [10.161.20.62]
+skipping: [10.161.21.101]
+
+TASK [flannel : Distribute Flannel Binary File] ************************************************************************************************************************
+skipping: [10.161.20.255] => (item=flanneld)
+skipping: [10.161.20.255] => (item=mk-docker-opts.sh)
+skipping: [10.161.21.7] => (item=flanneld)
+skipping: [10.161.21.7] => (item=mk-docker-opts.sh)
+skipping: [10.161.20.62] => (item=flanneld)
+skipping: [10.161.20.62] => (item=mk-docker-opts.sh)
+skipping: [10.161.22.65] => (item=flanneld)
+skipping: [10.161.22.65] => (item=mk-docker-opts.sh)
+skipping: [10.161.21.101] => (item=flanneld)
+skipping: [10.161.21.101] => (item=mk-docker-opts.sh)
+
+TASK [flannel : Distribute Flannel Conflist File] **********************************************************************************************************************
+skipping: [10.161.20.255]
+skipping: [10.161.21.7]
+skipping: [10.161.22.65]
+skipping: [10.161.20.62]
+skipping: [10.161.21.101]
+
+TASK [flannel : Distribute Flannel Config File] ************************************************************************************************************************
+skipping: [10.161.20.255]
+skipping: [10.161.21.7]
+skipping: [10.161.22.65]
+skipping: [10.161.20.62]
+skipping: [10.161.21.101]
+
+TASK [flannel : Copy Flanneld Systemd File] ****************************************************************************************************************************
+skipping: [10.161.20.255]
+skipping: [10.161.21.7]
+skipping: [10.161.22.65]
+skipping: [10.161.20.62]
+skipping: [10.161.21.101]
+
+TASK [flannel : Start Flannel] *****************************************************************************************************************************************
+skipping: [10.161.20.255]
+skipping: [10.161.22.65]
+skipping: [10.161.21.7]
+skipping: [10.161.20.62]
+skipping: [10.161.21.101]
+
+TASK [calico : Create Dir yaml] ****************************************************************************************************************************************
+ok: [10.161.20.255]
+
+TASK [calico : Create Calico-typha.yaml] *******************************************************************************************************************************
+skipping: [10.161.20.255]
+
+TASK [calico : Create Calico.yaml] *************************************************************************************************************************************
+changed: [10.161.20.255]
+
+TASK [calico : Install Calico By Calico-typha.yaml] ********************************************************************************************************************
+skipping: [10.161.20.255]
+
+TASK [calico : Install Calico By Calico.yaml] **************************************************************************************************************************
+changed: [10.161.20.255]
+
+TASK [calico : Distribute Calicoctl Binary File] ***********************************************************************************************************************
+changed: [10.161.20.255]
+
+TASK [calico : Create Calicoctl Config Dir] ****************************************************************************************************************************
+changed: [10.161.20.255]
+
+TASK [calico : Distribute Calicoctl Config File] ***********************************************************************************************************************
+changed: [10.161.20.255]
+
+PLAY [Install Coredns] *************************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************
+ok: [10.161.21.7]
+ok: [10.161.20.255]
+ok: [10.161.22.65]
+
+TASK [coredns : Create Dir yaml] ***************************************************************************************************************************************
+ok: [10.161.20.255]
+changed: [10.161.21.7]
+changed: [10.161.22.65]
+
+TASK [coredns : Copy Coredns.yaml Files] *******************************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.22.65]
+changed: [10.161.20.255]
+
+TASK [Run 'kubectl apply -f coredns.yaml'] *****************************************************************************************************************************
+changed: [10.161.20.255]
+
+PLAY [Install Metrics-server] ******************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************
+ok: [10.161.21.7]
+ok: [10.161.20.255]
+ok: [10.161.22.65]
+
+TASK [metrics-server : Create Dir yaml] ********************************************************************************************************************************
+ok: [10.161.20.255]
+ok: [10.161.21.7]
+ok: [10.161.22.65]
+
+TASK [metrics-server : Copy Metrics.yaml Files] ************************************************************************************************************************
+changed: [10.161.21.7]
+changed: [10.161.22.65]
+changed: [10.161.20.255]
+
+TASK [metrics-server : Run 'kubectl apply -f metrics.yaml'] ************************************************************************************************************
+changed: [10.161.20.255]
+
+PLAY RECAP *************************************************************************************************************************************************************
+10.161.20.255              : ok=91   changed=74   unreachable=0    failed=0    skipped=12   rescued=0    ignored=7
+10.161.20.62               : ok=34   changed=28   unreachable=0    failed=0    skipped=8    rescued=0    ignored=1
+10.161.21.100              : ok=6    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=1
+10.161.21.101              : ok=34   changed=28   unreachable=0    failed=0    skipped=8    rescued=0    ignored=1
+10.161.21.7                : ok=76   changed=62   unreachable=0    failed=0    skipped=9    rescued=0    ignored=7
+10.161.22.65               : ok=76   changed=60   unreachable=0    failed=0    skipped=9    rescued=0    ignored=7
+127.0.0.1                  : ok=18   changed=15   unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+
+[root@ip-10-161-21-100 k8s-ansible]#
