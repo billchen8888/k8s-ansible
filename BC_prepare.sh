@@ -88,4 +88,5 @@ do
 done
 
 # run ssh command to 127.0.0.1 to accept the fingerprint
+echo ssh command to 127.0.0.1 hostname
 ssh -o StrictHostKeyChecking=no 127.0.0.1 hostname
