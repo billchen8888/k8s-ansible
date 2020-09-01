@@ -10,3 +10,11 @@ run   BC_prepare.sh  as root
 
 then run download_binary.sh and then
 ansible-playbook -i inventory/hosts site.yml
+
+
+KNOWN issues to the original package:
+1)  the roles/master/tasks/make_master_labels_and_taints.yml label/taint master nodes would fail as in the inventory/hosts I put the IPs. THe IP is not the node name k8s is aware. 
+    k8s is aware of the actual hostname. So I changed the code to use {{ ansible_hostname }}. In order to use {{ ansible_hostname }}, I need to gather_facts in the top level 
+    yml file (the one spcified for ansible-playbook command), and add  setup in the roles/master/task/main.yml  or in the child yml  file (make_master_labels_and_taints.yml
+
+2) even after I did step1, and let the ansible sleep 180 seonds to let all nodes ready, sonehow make_master_labels_and_taints.yml  still complains the nodes are not ready.
