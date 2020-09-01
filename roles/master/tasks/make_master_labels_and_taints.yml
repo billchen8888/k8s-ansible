@@ -1,8 +1,25 @@
+- name: BC Gather Facts to set ansible_hostname
+  # This setup mode for gather facts, then the following command can run alone, if we need to
+  # ansible-playbook -i inventory/hosts site.yml -t make_master_labels_and_taints
+  setup:
+  tags: [ 'make_master_labels_and_taints' ]
+  when: ansible_facts == {}
+
 - name: "Make Role Labels to Masters"
   shell: |
     sleep 180
     kubectl label nodes {{ ansible_hostname }} node-role.kubernetes.io/master=
   ignore_errors: yes
+
+- name: "BC show the hostname and kubectl get nodes"
+  # I put this step to see what we reall have at the moment
+  # the whole section can be commented out
+  shell: |
+    hostname
+    kubectl get nodes
+  register: bcresult
+- debug:
+    var: bcresult.stdout_lines
 
 - name: "Make Taints to Masters"
   shell: |
