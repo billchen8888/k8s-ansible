@@ -19,7 +19,12 @@
     kubectl get nodes
   register: bcresult
 - debug:
-    var: bcresult.stdout_lines
+    #var: bcresult.stdout, bcresult.stderr
+    msg:
+      - "Standout is"
+      - "{{ bcresult.stdout_lines }}"
+      - "standerr is"
+      - "{{ bcresult.stderr_lines }}"
 
 - name: "Make Taints to Masters"
   shell: |
