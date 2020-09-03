@@ -25,8 +25,28 @@ KNOWN issues to the original package:
    
  4) I fixed 3). now most of pods in CrashLoopBackOff or CreatingCaontainer state
  
+# issues I ran into:
+ 1) I get the following error once: the step "kubectl apply -f coredns.yaml" in coredns/tasks/main.yml failed with the following error:
  
- The actual change I made to the main ansible:
+    Error from server: error when retrieving current configuration of:
+    Resource: "/v1, Resource=serviceaccounts", GroupVersionKind: "/v1, Kind=ServiceAccount"
+    Name: "coredns", Namespace: "kube-system"
+    from server for: "coredns.yaml": etcdserver: request timed out"
+    
+    but most of the roles were created (except one:  serviceaccount/coredns), and no pods for coredns.
+    clusterrole.rbac.authorization.k8s.io/system:coredns created
+    clusterrolebinding.rbac.authorization.k8s.io/system:coredns created
+    configmap/coredns created
+    deployment.apps/coredns created
+    service/kube-dns created"
+   
+    on one master node, I maunally run:  cd /opt/yamls;  kubectl apply -f coredns.yaml
+    sometime later, the two coredns pods are up running, and all the DESIRED and READY or CURRENT numbers match in kubectl get all -A
+    
+    this issue didn' occurr in the other deployment (exatchly same code)
+    
+ 
+# The actual change I made to the main ansible:
  1) in make_master_labels_and_taints.yml  to use {{ ansible_hostname }}, to do this, I need to specifically use setup modeul to gather facts
  2) add run_once for the place with connection: local, as no need to run exactly same commands on the controlbox multiple times (and each time with exact same generated conf file). The kube lock file causes issues
  3) changed the network_adapter_name to be eth0 in group_vars/all
