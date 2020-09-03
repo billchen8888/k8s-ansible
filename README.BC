@@ -8,6 +8,7 @@ becides this script, I also modified the group_vars/all   the docker_repo to use
 
 # How to use:
 add /root/.ssh/id_rsa  key
+modify the IPs in USERDATA. The first one is controlbox; then 3 master and 2 worker
 run   BC_prepare.sh  as root
 then run download_binary.sh and then
 ansible-playbook -i inventory/hosts site.yml

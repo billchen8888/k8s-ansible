@@ -49,6 +49,12 @@
     - { role: calico, tags: calico,  when: network_type == 'calico' }
   tags: network
 
+- name: label master and taints
+  hosts: masters
+  roles:
+    - labelmaster
+  tags: labelmaster
+
 # 安装 coredns
 - name: Install Coredns 
   hosts: masters

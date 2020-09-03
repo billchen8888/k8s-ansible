@@ -1,9 +1,9 @@
-# the 1st one is controlbox (assume to be the box we run the script
+#the 1st one is controlbox (assume to be the box we run the script
 # also the LB for nginx
 # then the next 3 IPs  are master
-10.161.20.81
-10.161.22.216
-10.161.21.208
-10.161.21.36
-10.161.22.131
-10.161.21.91
+10.161.23.72
+10.161.23.196
+10.161.21.59
+10.161.22.101
+10.161.22.136
+10.161.21.43
