@@ -17,4 +17,10 @@ KNOWN issues to the original package:
     k8s is aware of the actual hostname. So I changed the code to use {{ ansible_hostname }}. In order to use {{ ansible_hostname }}, I need to gather_facts in the top level 
     yml file (the one spcified for ansible-playbook command), and add  setup in the roles/master/task/main.yml  or in the child yml  file (make_master_labels_and_taints.yml
 
-2) even after I did step1, and let the ansible sleep 180 seonds to let all nodes ready, sonehow make_master_labels_and_taints.yml  still complains the nodes are not ready.
+2) even after I did step1, and let the ansible sleep 180 (now 300) seonds to let all nodes ready, sonehow make_master_labels_and_taints.yml  still complains the nodes are not ready.
+
+3）80% of time that one master node is not good, and a lot of component are not even installed. After many testing and debug, the issue was many the steps in role/master/tasks/ with connection: local would need 
+   run_once: true.  The issue is on the localbox, kubectl commands might create a temporary lock file. If the ansible runs too fast, then certain kubectl (sepcially the one 
+   for kubeconfig generationcause problem.
+   
+ 4) I fixed 3). now most of pods in CrashLoopBackOff or CreatingCaontainer state
