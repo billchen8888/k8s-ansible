@@ -4,3 +4,4 @@
     dest: "{{ kube_config_dir }}/config"
   when: admin_kubeconfig is failed
   connection: local 
+  run_once: true
