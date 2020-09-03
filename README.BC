@@ -25,10 +25,10 @@ KNOWN issues to the original package:
    run_once: true.  The issue is on the localbox, kubectl commands might create a temporary lock file. If the ansible runs too fast, then certain kubectl (sepcially the one 
    for kubeconfig generationcause problem.
    
- 4) I fixed 3). now most of pods in CrashLoopBackOff or CreatingCaontainer state
+ 4) I fixed 3). Now most of pods in CrashLoopBackOff or CreatingCaontainer state. The issue is aws uses eth0 for the NIC, but the original script uses ens33 (which is set NETWORK_ADAPTER_NAME in group_vars/all)
  
-# issues I ran into:
- 1) I get the following error once: the step "kubectl apply -f coredns.yaml" in coredns/tasks/main.yml failed with the following error:
+# issues I ran into: (still happenning, need to sort out why)
+ 1) I get the following error twice in 3 deployment: the step "kubectl apply -f coredns.yaml" in coredns/tasks/main.yml failed with the following error:
  
     Error from server: error when retrieving current configuration of:
     Resource: "/v1, Resource=serviceaccounts", GroupVersionKind: "/v1, Kind=ServiceAccount"
@@ -52,6 +52,7 @@ KNOWN issues to the original package:
  1) in make_master_labels_and_taints.yml  to use {{ ansible_hostname }}, to do this, I need to specifically use setup modeul to gather facts
  2) add run_once for the place with connection: local, as no need to run exactly same commands on the controlbox multiple times (and each time with exact same generated conf file). The kube lock file causes issues
  3) changed the network_adapter_name to be eth0 in group_vars/all
+ 4) changed the aliyuns repo and registry as at least the registery is not reachable
 
 
 
@@ -63,3 +64,6 @@ total 9 pods:
 1 calico-kube-controller (only on 1 master host)
 2 coredns  (1 master and 1 worker)
 1 metric   (only on 1 worker)
+
+#Things to do:
+  move the make_master_labels_and_taints after the calico. The nodes would not show up before kubectl apply -f calico.yml
