@@ -3,11 +3,12 @@
 We put the IPs of the controlbox as the first tone, then thr cluster IPs in USER data
 then add private key to root/.ssh/id_rsa
 
-becises this script, I also modified the group_vars/all   the docker_repo to use docker, not aliyun
+becides this script, I also modified the group_vars/all   the docker_repo to use docker, not aliyun
                      add the ignor_error for firewalld service stop in roles/init/stop_firewalld.yml permantently
 
+# How to use:
+add /root/.ssh/id_rsa  key
 run   BC_prepare.sh  as root
-
 then run download_binary.sh and then
 ansible-playbook -i inventory/hosts site.yml
 
@@ -50,3 +51,14 @@ KNOWN issues to the original package:
  1) in make_master_labels_and_taints.yml  to use {{ ansible_hostname }}, to do this, I need to specifically use setup modeul to gather facts
  2) add run_once for the place with connection: local, as no need to run exactly same commands on the controlbox multiple times (and each time with exact same generated conf file). The kube lock file causes issues
  3) changed the network_adapter_name to be eth0 in group_vars/all
+
+
+
+The final deployment result with this script: 
+1 controlbox (also nginx for lod balancer); 3 master; 2 worker
+
+total 9 pods:
+5 calico-node  (every master and worker host)
+1 calico-kube-controller (only on 1 master host)
+2 coredns  (1 master and 1 worker)
+1 metric   (only on 1 worker)
