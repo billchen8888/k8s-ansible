@@ -1,3 +1,4 @@
+# note: this works only on centos7, not centos8 yet.
 # I add one script file to prepare the data.
 
 We put the IPs of the controlbox as the first tone, then thr cluster IPs in USER data
