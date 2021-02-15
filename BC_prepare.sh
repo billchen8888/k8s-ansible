@@ -6,6 +6,7 @@ setenforce 0
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 
 # 2) install ansible
+yum install -y epel-release   # this is the EPEL repo, the ansible and nginx are in epel repo.
 yum install -y ansible
 
 # 3) edit the group_vars/all  LB info
