@@ -1,4 +1,6 @@
 ---
+- include: install_some_pkgs.yml
+  tags: install_some_pkgs
 - name: disable_selinux
   include: disable_selinux.yml
   tags: disable_selinux
@@ -12,8 +14,6 @@
   tags: timezone
 - include: install_docker.yml
   tags: install_docker
-- include: install_some_pkgs.yml
-  tags: install_some_pkgs
 - include: support_ipvs.yml
   tags: support_ipvs
 - include: copy_hostfile.yml 
