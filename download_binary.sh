@@ -7,6 +7,8 @@ K8S_SERVER_VER=1.18.3
 FLANNEL_VER=0.12.0
 CALICO_VER=3.15.0
 
+yum install -y wget
+
 mkdir /opt/pkg 
 cd /opt/pkg 
 #wget https://github.com/containernetworking/plugins/releases/download/v${CNI_PLUGIN_VER}/cni-plugins-linux-amd64-v${CNI_PLUGIN_VER}.tgz && \
