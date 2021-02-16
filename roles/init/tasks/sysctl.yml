@@ -5,3 +5,5 @@
       dest: /etc/sysctl.d/99-k8s.conf
   - name: Load system parameters
     shell: modprobe br_netfilter && sysctl -p /etc/sysctl.d/99-k8s.conf
+    ignore_errors: yes
+    # ignore_errors as centos8 doesn't have fs.may_detach_mounts. The result code is 255 in that case.
