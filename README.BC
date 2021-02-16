@@ -1,3 +1,6 @@
+# we need certains security group policy for the nodes as they need to communicate each other.
+#    for example, the etcd nodes need to check each other, otherwise  systemctl start etcd   will hang there forever.
+#
 # note: this works only on centos7, not centos8 yet.
 # the issue in centos8: 
 #  a)  iptables package is not pre-installed, so roles/init/tasks/stop_firewall.yml  will fail on the iptables command
