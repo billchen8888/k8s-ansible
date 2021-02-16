@@ -34,7 +34,9 @@ cni_plugins_version: 0.8.6
 coredns_image_tag: 1.6.7
 
 # docker 版本
-docker_version: 19.03.10
+# docker_version: 19.03.10
+# centos8 docker repo doesn't have 19.03.10 any more
+docker_version: 20.10.1
 
 # docker 源地址
 docker_repo: https://download.docker.com/linux/centos/docker-ce.repo
