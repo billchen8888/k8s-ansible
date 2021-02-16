@@ -4,6 +4,7 @@
 # note: this works only on centos7, not centos8 yet.
 # the issue in centos8: 
 #  a)  iptables package is not pre-installed, so roles/init/tasks/stop_firewall.yml  will fail on the iptables command
+#      we can edit roles/init/tasks/main.yml  and move install_some_pkgs.yml  to the first, so iptables will be present before we use iptables
 #  b)  roles/init/tasks/sysctl.yml  will also fail on the line fs.may_detach_mounts=1 of 99-k8s.conf 
 # I add one script file to prepare the data.
 
