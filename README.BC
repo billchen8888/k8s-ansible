@@ -1,5 +1,7 @@
 # we need certains security group policy for the nodes as they need to communicate each other.
 #    for example, the etcd nodes need to check each other, otherwise  systemctl start etcd   will hang there forever.
+# we also need to pay attention to the component version specified in group_vars/all, as the repo might not have the old 
+#    version any more, such as centos8 repo doesn't have docker-ce 1.19.3 etc
 #
 # note: this works only on centos7, not centos8 yet.
 # the issue in centos8: 
