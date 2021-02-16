@@ -1,11 +1,22 @@
 #!/bin/bash
 # Download
 
-CNI_PLUGIN_VER=0.8.6
-ETCD_VER=3.4.9
-K8S_SERVER_VER=1.18.3
-FLANNEL_VER=0.12.0
-CALICO_VER=3.15.0
+#CNI_PLUGIN_VER=0.8.6
+#ETCD_VER=3.4.9
+#K8S_SERVER_VER=1.18.3
+#FLANNEL_VER=0.12.0
+#CALICO_VER=3.15.0
+
+raw=`grep cni_plugins_version all| grep -v ^# |awk -F : '{print $2}'  `
+CNI_PLUGIN_VER=`echo $raw  `
+raw=`grep etcd_version all| grep -v ^# |awk -F : '{print $2}'  `
+ETCD_VER=`echo $raw  `
+raw=`grep kubernetes_version all| grep -v ^# |awk -F : '{print $2}'  `
+K8S_SERVER_VER=`echo $raw  `
+raw=`grep flannel_version all| grep -v ^# |awk -F : '{print $2}'  `
+FLANNEL_VER=`echo $raw  `
+raw=`grep calico_version all| grep -v ^# |awk -F : '{print $2}'  `
+CALICO_VER=`echo $raw  `
 
 yum install -y wget
 
