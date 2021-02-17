@@ -92,3 +92,15 @@ done
 # run ssh command to 127.0.0.1 to accept the fingerprint
 echo ssh command to 127.0.0.1 hostname
 ssh -o StrictHostKeyChecking=no 127.0.0.1 hostname
+
+# for AWS CentOS7 AMI based EC2, as I moved the roles/init/task/install_some_packages.yml up to the first task
+# so we can use the iptables command later. But this cause the jq installing failure as jq for centos7 is from
+# epel, and the epel-release installation is behind.  CentOS8 doesn't have this issue as AWS CentOS8 AMI AppStream repo has jq
+# So for CentOS7, I prepare it outside the ansible
+for i in ${clusterip_array[@]}
+do
+   os_ver=`ssh $i cat /etc/centos-release |awk '{print $4}' |awk -F . '{print $1}'`
+   if [ $os_ver = 7 ]; then
+      ssh $i yum install -y epel-release
+   fi
+done
