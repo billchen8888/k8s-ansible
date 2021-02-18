@@ -77,3 +77,18 @@ total 9 pods:
 
 #Things to do:
   move the make_master_labels_and_taints after the calico. The nodes would not show up before kubectl apply -f calico.yml
+
+
+
+
+# Notes about k8s 1.20.0
+since 1.20.0, 
+In the kubernetes 1.20.0 release notes:  (change since 1.190)
+TokenRequest and TokenRequestProjection are now GA features. The following flags are required by the API server:
+•	--service-account-issuer, should be set to a URL identifying the API server that will be stable over the cluster lifetime.
+•	--service-account-key-file, set to one or more files containing one or more public keys used to verify tokens.
+•	--service-account-signing-key-file, set to a file containing a private key to use to sign service account tokens. Can be the same file given to kube-controller-manager with --service-account-private-key-file. (#95896, @zshihang) [SIG API Machinery, Auth, Cluster Lifecycle]
+
+
+--service-account-issuer string
+	Identifier of the service account token issuer. The issuer will assert this identifier in "iss" claim of issued tokens. This value is a string or URI. If this option is not a valid URI per the OpenID Discovery 1.0 spec, the ServiceAccountIssuerDiscovery feature will remain disabled, even if the feature gate is set to true. It is highly recommended that this value comply with the OpenID spec: https://openid.net/specs/openid-connect-discovery-1_0.html. In practice, this means that service-account-issuer must be an https URL. It is also highly recommended that this URL be capable of serving OpenID discovery documents at {service-account-issuer}/.well-known/openid-configuration
