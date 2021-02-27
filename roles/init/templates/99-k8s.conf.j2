@@ -12,7 +12,9 @@ vm.max_map_count=262144
 vm.swappiness=0
 vm.overcommit_memory=1
 vm.panic_on_oom=0
+{% if ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7" %}
 fs.may_detach_mounts=1
+{% endif %}
 net.core.netdev_max_backlog=16384
 net.ipv4.tcp_wmem=4096 12582912 16777216
 net.core.wmem_max=16777216

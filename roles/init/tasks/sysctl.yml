@@ -1,7 +1,7 @@
 # Set system parameters
   - name: copy system parameters config file
-    copy:
-      src: 99-k8s.conf
+    template:
+      src: 99-k8s.conf.j2
       dest: /etc/sysctl.d/99-k8s.conf
   - name: Load system parameters
     shell: modprobe br_netfilter && sysctl -p /etc/sysctl.d/99-k8s.conf
