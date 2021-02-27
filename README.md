@@ -4,7 +4,7 @@ adjust my setting to match your environment `group_vars/all` 和`inventory/hosts
 
 ## Version used
 
-K8S_SERVER_VER=1.18.3
+K8S_SERVER_VER=1.20.0
 
 ETCD_VER=3.4.9
 
@@ -31,12 +31,12 @@ coredns address： 10.96.0.10
 
 | machine       | IP           |  role and component      |                         k8s realted components               |
 | ------------- | ------------ | :----------------------: | :----------------------------------------------------------: |
-| centos7-nginx | 10.10.10.127 |  nginx layer4 proxy      |                        nginx  ansible                             |
-| centos7-a     | 10.10.10.128 | master,node,etcd,flannel | kube-apiserver kube-controller-manager kube-scheduler kubelet kube-proxy |
-| centos7-b     | 10.10.10.129 | master,node,etcd,flannel | kube-apiserver kube-controller-manager kube-scheduler kubelet kube-proxy |
-| centos7-c     | 10.10.10.130 | master,node,etcd,flannel | kube-apiserver kube-controller-manager kube-scheduler kubelet kube-proxy |
-| centos7-d     | 10.10.10.131 |       node,flannel       |                      kubelet kube-proxy                      |
-| centos7-e     | 10.10.10.132 |       node,flannel       |                      kubelet kube-proxy                      |
+| centos-nginx | 10.10.10.127 |  nginx layer4 proxy      |                        nginx  ansible                             |
+| centos-a     | 10.10.10.128 | master,node,etcd,flannel | kube-apiserver kube-controller-manager kube-scheduler kubelet kube-proxy |
+| centos-b     | 10.10.10.129 | master,node,etcd,flannel | kube-apiserver kube-controller-manager kube-scheduler kubelet kube-proxy |
+| centos-c     | 10.10.10.130 | master,node,etcd,flannel | kube-apiserver kube-controller-manager kube-scheduler kubelet kube-proxy |
+| centos-d     | 10.10.10.131 |       node,flannel       |                      kubelet kube-proxy                      |
+| centos-e     | 10.10.10.132 |       node,flannel       |                      kubelet kube-proxy                      |
 
 
 
@@ -67,12 +67,12 @@ bash tools/move_pkg.sh
 [root@centos7-nginx k8s-ansible]# cat /etc/hosts
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
-10.10.10.127 centos7-nginx lb.5179.top inner-lb.5179.top ng.5179.top ng-inner.5179.top
-10.10.10.128 centos7-a
-10.10.10.129 centos7-b
-10.10.10.130 centos7-c
-10.10.10.131 centos7-d
-10.10.10.132 centos7-e
+10.10.10.127 centos-nginx lb.5179.top inner-lb.5179.top ng.5179.top ng-inner.5179.top
+10.10.10.128 centos-a
+10.10.10.129 centos-b
+10.10.10.130 centos-c
+10.10.10.131 centos-d
+10.10.10.132 centos-e
 ```
 
 ## execute
