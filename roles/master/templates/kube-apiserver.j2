@@ -18,7 +18,7 @@ KUBE_APISERVER_OPTS="--logtostderr=false \
 --tls-cert-file={{ workdir}}/kubernetes/ssl/server.pem  \
 --tls-private-key-file={{ workdir}}/kubernetes/ssl/server-key.pem \
 --client-ca-file={{ workdir}}/kubernetes/ssl/ca.pem \
---service-account-key-file={{ workdir}}/kubernetes/ssl/ca-key.pem \
+--service-account-key-file={{ workdir}}/kubernetes/ssl/ca.pem \
 {% if kubernetes_version is version('1.20.0', '>=') %}
 --service-account-issuer=https://kubernetes.default.svc.cluster.local \
 --service-account-signing-key-file={{ workdir}}/kubernetes/ssl/ca-key.pem \
