@@ -21,7 +21,7 @@ fi
 sed -i "s/10.10.10.127/$controlbox/" group_vars/all
 
 # 4) prepare the /etc/hosts
-echo "$controlbox  centos7-nginx lb.5179.top inner-lb.5179.top ng.5179.top ng-inner.5179.top" >> /etc/hosts
+echo "$controlbox  centos-nginx lb.5179.top inner-lb.5179.top ng.5179.top ng-inner.5179.top" >> /etc/hosts
 
 nu_ip=`cat USERDATA|sed 's/^[ 	]*//;s/[ 	]*$//;/^$/d'|grep -v ^#| sed 1d |awk '{print $1}' |wc -l`
 clusips=`cat USERDATA|sed 's/^[ 	]*//;s/[ 	]*$//;/^$/d'|grep -v ^#| sed 1d |awk '{print $1}'`
@@ -35,7 +35,7 @@ do
     clusterip_array[$i]=$ip
     ascii=$((97+$i))   # 97 is the character "a"
     current_char=$(printf "\\$(printf '%03o' $ascii)")
-    echo $ip  centos7-$current_char  >> /etc/hosts
+    echo $ip  centos-$current_char  >> /etc/hosts
     i=$(($i+1))
     if [ $i -ge $nu_ip ]; then
        break
