@@ -9,7 +9,6 @@ KUBE_APISERVER_OPTS="--logtostderr=false \
 --service-cluster-ip-range={{ service_network }} \
 --enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,NodeRestriction \
 --authorization-mode=RBAC,Node \
---kubelet-https=true \
 --enable-bootstrap-token-auth=true \
 --token-auth-file={{ workdir}}/kubernetes/cfg/token.csv \
 --service-node-port-range={{ service_port_range }} \
@@ -22,6 +21,8 @@ KUBE_APISERVER_OPTS="--logtostderr=false \
 {% if kubernetes_version is version('1.20.0', '>=') %}
 --service-account-issuer=https://kubernetes.default.svc.cluster.local \
 --service-account-signing-key-file={{ workdir}}/kubernetes/ssl/ca-key.pem \
+{% else %}
+--kubelet-https=true \
 {% endif %}
 --etcd-cafile={{ workdir}}/kubernetes/ssl/ca.pem \
 --etcd-certfile={{ workdir}}/kubernetes/ssl/server.pem \
