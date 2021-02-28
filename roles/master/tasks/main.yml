@@ -17,9 +17,9 @@
 - name: distribute_scheduler
   include: distribute_scheduler.yml
   tags: distribute_scheduler
-- name: create_some_roles
-  include: create_some_roles.yml
-  tags: create_some_roles  
 - name: copy_admin_config
   include: copy_admin_config.yml
   tags: copy_admin_config
+- name: create_some_roles
+  include: create_some_roles.yml
+  tags: create_some_roles  
