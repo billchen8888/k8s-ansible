@@ -1,3 +1,15 @@
+- name: "Explicitely Create /root/.kube on local machine"
+  file:
+    path: /root/.kube
+    state: directory
+  connection: local
+  run_once: true
+
+- name: "Explicitely Create /root/.kube on master nodes"
+  file:
+    path: /root/.kube
+    state: directory
+
 - name: "Copy Admin Kubeconfig to /root/.kube/config"
   copy:
     src: "{{ cert_root_dir }}/admin.kubeconfig"
@@ -5,3 +17,10 @@
   when: admin_kubeconfig is failed
   connection: local 
   run_once: true
+
+- name: "Copy Admin Kubeconfig to master nodes:/root/.kube/config"
+  copy:
+    src: "{{ cert_root_dir }}/admin.kubeconfig"
+    dest: "{{ kube_config_dir }}/config"
+  when: admin_kubeconfig is failed
+  # this is to make the kubectl commands not to use localhost:8080 any more
