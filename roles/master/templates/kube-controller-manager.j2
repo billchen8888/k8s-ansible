@@ -7,6 +7,7 @@ KUBE_CONTROLLER_MANAGER_OPTS="--logtostderr=false \
 --authorization-kubeconfig=/opt/kubernetes/cfg/kube-controller.kubeconfig
 {% else %}
 --master=127.0.0.1:8080 \
+--experimental-cluster-signing-duration=87600h0m0s \
 {% endif %}
 --leader-elect=true \
 --bind-address=0.0.0.0 \
@@ -15,7 +16,6 @@ KUBE_CONTROLLER_MANAGER_OPTS="--logtostderr=false \
 --cluster-signing-cert-file={{ workdir}}/kubernetes/ssl/ca.pem \
 --cluster-signing-key-file={{ workdir}}/kubernetes/ssl/ca-key.pem  \
 --service-account-private-key-file={{ workdir}}/kubernetes/ssl/ca-key.pem \
---experimental-cluster-signing-duration=87600h0m0s \
 --feature-gates=RotateKubeletServerCertificate=true \
 --feature-gates=RotateKubeletClientCertificate=true \
 --allocate-node-cidrs=true \
