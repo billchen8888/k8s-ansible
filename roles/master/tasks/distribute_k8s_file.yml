@@ -21,6 +21,19 @@
     - metrics-server.pem
     - metrics-server-key.pem
 
+# next section is added by BC for v1.20
+- name: "Distribute K8s Certs"
+  copy:
+    src: "{{ cert_root_dir }}/{{ item }}"
+    dest: "{{ workdir }}/kubernetes/ssl"
+  with_items:
+    - kube-controller.pem
+    - kube-controller-key.pem
+    - kube-scheduler.pem
+    - kube-scheduler-key.pem
+  when: kubernetes_version is version('1.20.0', '>=')
+# end BC
+
 - name: "Distribute Token.csv"
   copy:
     src: "{{ cert_root_dir }}/token.csv"
