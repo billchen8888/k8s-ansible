@@ -11,7 +11,7 @@
 - name: "Copy controller Kubeconfig to master nodes:/opt/kuberntes/cfg"
   copy:
     src: "{{ cert_root_dir }}/kube-controller.kubeconfig"
-    dest: "{{ kube_config_dir }}/cfg"
+    dest: "{{workdir}}/kubernetes/cfg"
   when: kubernetes_version is version('1.20.0', '>=') and admin_kubeconfig is failed
   # this is to make the kubectl commands not to use localhost:8080 any more
 
