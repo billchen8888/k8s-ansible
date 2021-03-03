@@ -18,9 +18,25 @@
   connection: local 
   run_once: true
 
+# added by BC for version since 1.20.0
 - name: "Copy Admin Kubeconfig to master nodes:/root/.kube/config"
   copy:
     src: "{{ cert_root_dir }}/admin.kubeconfig"
-    dest: "{{ kube_config_dir }}/config"
-  when: admin_kubeconfig is failed
+    dest: "{{ kube_config_dir }}/cfg"
+  when: kubernetes_version is version('1.20.0', '>=') and admin_kubeconfig is failed
   # this is to make the kubectl commands not to use localhost:8080 any more
+
+# I moved the following to their tasks as the kubeconfig is needed to start the service
+#- name: "Copy controller Kubeconfig to master nodes:/opt/kuberntes/cfg"
+#  copy:
+#    src: "{{ cert_root_dir }}/kube-controller.kubeconfig"
+#    dest: "{{ kube_config_dir }}/cfg"
+#  when: kubernetes_version is version('1.20.0', '>=') and admin_kubeconfig is failed
+#  # this is to make the kubectl commands not to use localhost:8080 any more
+#
+#- name: "Copy Admin Kubeconfig to master nodes:/opt/kubernetes/cfg"
+#  copy:
+#    src: "{{ cert_root_dir }}/kube-scheduler.kubeconfig"
+#    dest: "{{ kube_config_dir }}/cfg"
+#  when: kubernetes_version is version('1.20.0', '>=') and admin_kubeconfig is failed
+#  # this is to make the kubectl commands not to use localhost:8080 any more

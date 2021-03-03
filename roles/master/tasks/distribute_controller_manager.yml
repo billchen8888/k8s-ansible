@@ -8,6 +8,13 @@
     src: kube-controller-manager.service.j2
     dest: /usr/lib/systemd/system/kube-controller-manager.service
 
+- name: "Copy controller Kubeconfig to master nodes:/opt/kuberntes/cfg"
+  copy:
+    src: "{{ cert_root_dir }}/kube-controller.kubeconfig"
+    dest: "{{ kube_config_dir }}/cfg"
+  when: kubernetes_version is version('1.20.0', '>=') and admin_kubeconfig is failed
+  # this is to make the kubectl commands not to use localhost:8080 any more
+
 - name: "Start Kube-controller-manager"
   systemd:
     name: kube-controller-manager

@@ -64,3 +64,32 @@
     cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=kubernetes metrics-server-csr.json | cfssljson -bare metrics-server
   args:
     chdir: "{{ cert_root_dir }}"
+
+# added by BC for k8s version since 1.20 as controller-manager or scheduler need to talk to 
+# apiserver on 6443, not localhost:8080 any more
+- name: "Generate kube-controller-csr.json"
+  template:
+    src: kube-controller-csr.json.j2
+    dest: "{{ cert_root_dir }}/kube-controller-csr.json"
+  when: kubernetes_version is version('1.20.0', '>=')
+
+- name: "Generate kube contoller manager Certs File and Key File"
+  shell:
+    cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=kubernetes kube-controller-csr.json | cfssljson -bare admin
+  args:
+    chdir: "{{ cert_root_dir }}"
+  when: kubernetes_version is version('1.20.0', '>=')
+
+- name: "Generate kube-scheduler-csr.json"
+  template:
+    src: kube-scheduler-csr.json.j2
+    dest: "{{ cert_root_dir }}/kube-scheduler-csr.json"
+  when: kubernetes_version is version('1.20.0', '>=')
+
+- name: "Generate kube scheduler manager Certs File and Key File"
+  shell:
+    cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=kubernetes kube-scheduler-csr.json | cfssljson -bare admin
+  args:
+    chdir: "{{ cert_root_dir }}"
+  when: kubernetes_version is version('1.20.0', '>=')
+
