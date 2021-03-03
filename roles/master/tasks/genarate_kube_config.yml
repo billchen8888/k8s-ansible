@@ -96,7 +96,7 @@
   shell: |
     kubectl config set-cluster kubernetes --certificate-authority=./ca.pem --embed-certs=true --server=https://{{ apiserver_master_addr }}:6443 --kubeconfig=kube-controller.kubeconfig
     kubectl config set-credentials kube-controller --client-certificate=./kube-controller.pem --client-key=./kube-controller-key.pem  --embed-certs=true --kubeconfig=kube-controller.kubeconfig
-    kubectl config set-context default --cluster=kubernetes --user=kube-controller-manager --kubeconfig=kube-controller.kubeconfig
+    kubectl config set-context default --cluster=kubernetes --user=system:kube-controller-manager --kubeconfig=kube-controller.kubeconfig
     kubectl config use-context default --kubeconfig=kube-controller.kubeconfig
   args:
     chdir: "{{ cert_root_dir }}"
@@ -116,7 +116,7 @@
   shell: |
     kubectl config set-cluster kubernetes --certificate-authority=./ca.pem --embed-certs=true --server=https://{{ apiserver_master_addr }}:6443 --kubeconfig=kube-scheduler.kubeconfig
     kubectl config set-credentials kube-scheduler --client-certificate=./kube-scheduler.pem --client-key=./kube-scheduler-key.pem  --embed-certs=true --kubeconfig=kube-scheduler.kubeconfig
-    kubectl config set-context default --cluster=kubernetes --user=kube-scheduler --kubeconfig=kube-scheduler.kubeconfig
+    kubectl config set-context default --cluster=kubernetes --user=system:kube-scheduler --kubeconfig=kube-scheduler.kubeconfig
     kubectl config use-context default --kubeconfig=kube-scheduler.kubeconfig
   args:
     chdir: "{{ cert_root_dir }}"
