@@ -3,8 +3,8 @@ KUBE_CONTROLLER_MANAGER_OPTS="--logtostderr=false \
 --log-dir={{ workdir}}/kubernetes/logs/kube-controller-manager \
 {% if kubernetes_version is version('1.20.0', '>=') %}
 --master=127.0.0.1:6443 \
---authentication-kubeconfig=/etc/kubernetes/kube-controller.conf
---authorization-kubeconfig=/etc/kubernetes/kube-controller.conf
+--authentication-kubeconfig=/opt/kubernetes/kube-controller.kubeconfig
+--authorization-kubeconfig=/opt/kubernetes/kube-controller.kubeconfig
 {% else %}
 --master=127.0.0.1:8080 \
 {% endif %}

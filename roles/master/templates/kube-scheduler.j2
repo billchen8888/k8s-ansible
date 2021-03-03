@@ -3,8 +3,8 @@ KUBE_SCHEDULER_OPTS="--logtostderr=false \
 --log-dir={{ workdir}}/kubernetes/logs/kube-scheduler \
 {% if kubernetes_version is version('1.20.0', '>=') %}
 --master=127.0.0.1:6443 \
---authentication-kubeconfig=/etc/kubernetes/cfg/kube-scheduler.conf
---authorization-kubeconfig=/opt/kubernetes/cfg/kube-scheduler.conf
+--authentication-kubeconfig=/opt/kubernetes/cfg/kube-scheduler.kubeconfig
+--authorization-kubeconfig=/opt/kubernetes/cfg/kube-scheduler.kubeconfig
 {% else %}
 --master=127.0.0.1:8080 \
 {% endif %}
