@@ -21,6 +21,7 @@ KUBE_APISERVER_OPTS="--logtostderr=false \
 {% if kubernetes_version is version('1.20.0', '>=') %}
 --service-account-issuer=https://kubernetes.default.svc.cluster.local \
 --service-account-signing-key-file={{ workdir}}/kubernetes/ssl/ca-key.pem \
+--requestheader-allowed-names=kubernetes
 {% else %}
 --kubelet-https=true \
 {% endif %}
